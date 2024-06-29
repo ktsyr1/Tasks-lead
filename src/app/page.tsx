@@ -19,7 +19,7 @@ export default function Home() {
     return (
         <TasksContext.Provider value={{ state, dispatch }}>
 
-            <main className="flex flex-row flex-wrap items-start justify-center p-24 max-w-[1100px] m-auto ">
+            <main className="flex flex-row flex-wrap items-start p-24 max-w-[1100px] m-auto justify-between ">
                 <div className="max-w-[450px]  w-full flex flex-col">
                     <AddTask />
                     <ListTask />

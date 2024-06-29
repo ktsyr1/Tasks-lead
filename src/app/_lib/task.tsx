@@ -10,18 +10,19 @@ export function AddTask() {
 
     let Send = (e: any) => {
         e.preventDefault();
+        let arr = [...state.TaskList]
+        one.split(",").map(async (text: string) => {
+            await setTimeout(() => {
+                text = text.trim()
+                console.log(text);
 
-        let data = DBtask.create({
-            title: one, timeComplete: 25 * 60, totleTime: 0
+                if (text != "") {
+                    let data = DBtask.create({ title: text, timeComplete: 25 * 60, totleTime: 0 })
+                    arr.push(data)
+                }
+            }, 1000)
         })
-
-        dispatch({
-            type: "TaskList", payload: [
-                ...state.TaskList,
-                data
-            ]
-        })
-
+        dispatch({ type: "TaskList", payload: arr })
         setOne('')
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,10 +54,12 @@ export function ListTask() {
 
     }, [])
     let count = state?.TaskList.filter((a: TaskOneType) => a.complete == true).length
+    let unComplete = state?.TaskList?.filter((a: any) => !a.complete)
+    let Complete = state?.TaskList?.filter((a: any) => a.complete)
     return (
         <div className="m-4" >
             <ol className="relative border-s border-gray-200 dark:border-gray-700">
-                {state?.TaskList?.filter((a: any) => !a.complete).map((task: TaskOneType) => <TaskOne key={task?.id} data={task} />)}
+                {unComplete.map((task: TaskOneType) => <TaskOne key={task?.id} data={task} />)}
                 <hr />
                 <li className="mb-4 ms-4 mt-4" onClick={() => setComplete(!complete)}>
                     <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
@@ -65,7 +68,7 @@ export function ListTask() {
                         <span className="font-bold px-2" > ( {count} )</span>
                     </time>
                 </li>
-                {complete && state?.TaskList?.filter((a: any) => a.complete)?.map((task: TaskOneType) => <TaskOne key={task?.id} data={task} />)}
+                {complete && Complete?.map((task: TaskOneType) => <TaskOne key={task?.id} data={task} />)}
 
 
             </ol>

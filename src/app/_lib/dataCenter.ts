@@ -16,7 +16,7 @@ class DBCenter {
 
         let updatedList = JSON.stringify(list);
         localStorage.setItem(name, updatedList);
-        return list;
+        return data;
     }
     static find(name: string, query: any,) {
         let text: any = localStorage.getItem(name)
