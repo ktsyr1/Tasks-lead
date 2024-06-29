@@ -44,7 +44,6 @@ export function ListTask() {
     let [complete, setComplete] = useState<any>(false)
     useEffect(() => {
         let res: TaskOneType[] = DBtask.find()
-        console.log({ res });
 
         if (res?.length == 0) {
             "المهمة الاولى,اتمام اول مهمة, تشغيل اول مهمة".split(/[\n,]/).map(async (text: string) => {
@@ -57,7 +56,7 @@ export function ListTask() {
         }
         dispatch({ type: "TaskList", payload: res })
 
-    }, [])
+    }, [dispatch])
     let count = state?.TaskList.filter((a: TaskOneType) => a.complete == true).length
     let unComplete = state?.TaskList?.filter((a: any) => !a.complete)
     let Complete = state?.TaskList?.filter((a: any) => a.complete)
