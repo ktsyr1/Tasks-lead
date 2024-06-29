@@ -27,7 +27,7 @@ export function AddTask() {
     return (
         <form onSubmit={Send} className="max-w-[500px] mx-auto w-full flex flex-row"  >
             <textarea
-                onChange={handleChange} 
+                onChange={handleChange}
                 value={one}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  " required
             />
@@ -44,7 +44,17 @@ export function ListTask() {
     let [complete, setComplete] = useState<any>(false)
     useEffect(() => {
         let res: TaskOneType[] = DBtask.find()
+        console.log({ res });
 
+        if (res?.length == 0) {
+            "المهمة الاولى,اتمام اول مهمة, تشغيل اول مهمة".split(/[\n,]/).map(async (text: string) => {
+                text = text.trim()
+                if (text != "") {
+                    let data = DBtask.create({ title: text, timeComplete: 25 * 60, totleTime: 0 })
+                    res.push(data)
+                }
+            })
+        }
         dispatch({ type: "TaskList", payload: res })
 
     }, [])

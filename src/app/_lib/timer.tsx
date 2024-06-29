@@ -56,7 +56,6 @@ let Icons = {
 
 export function PomodoroTimerFun() {
     const { state, dispatch } = useContext(TasksContext)
-    console.log({ time: state?.TaskOne?.timeComplete });
 
     const [time, setTime] = useState(25 * 60); // 25 minutes in seconds
     // const [time, setTime] = useState(state?.TaskOne?.timeComplete); // 25 minutes in seconds
@@ -111,7 +110,6 @@ export function PomodoroTimerFun() {
     const formatTime = () => {
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
-        console.log({ time, minutes, seconds });
         return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
     return {
