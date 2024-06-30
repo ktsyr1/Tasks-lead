@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { TaskManager } from "../_lib/dataCenter";
 import { TaskOneType } from "./types";
-import { TasksContext } from "./store";
-import { TaskOne } from "./task";
+import { TasksContext } from "./store"; 
+import { TaskOne } from "./taskOne";
 
 export function ListTask() {
     const { state, dispatch } = useContext(TasksContext)

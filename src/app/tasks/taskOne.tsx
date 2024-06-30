@@ -18,6 +18,11 @@ export function TaskOne({ data }: { data: TaskOneType }) {
 
         localStorage.setItem("tasks", JSON.stringify(body))
     }
+    const formatTime = (time: any) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
     return (
         <div className={`ms-2 items-center text-sm p-4 flex flex-row justify-between hover:bg-slate-50 rounded-md ${state.TaskOne.id == data.id && "border-2 border-blue-600"} `}>
             <li className="  ms-4">
@@ -27,7 +32,9 @@ export function TaskOne({ data }: { data: TaskOneType }) {
                     {/* <p id="helper-checkbox-text" className="text-xs font-normal text-gray-500 dark:text-gray-300">{data?.about}</p> */}
                 </div>
             </li>
-            <div className="flex flex-row *:mx-2  cursor-pointer ">
+
+            <div className="flex flex-row *:mx-2  cursor-pointer items-center ">
+                <time className={`mb-1 text-sm leading-none font-medium text-white p-2 rounded-md dark:text-gray-300 bg-sky-500  ${data?.complete && "line-through"}`}>{formatTime(data.timeComplete)} </time>
                 {!data?.complete &&
                     <>
                         <TaskDone data={data} size={30} />
@@ -54,6 +61,7 @@ export function TaskDone({ data, size }: any) {
         body = [...body, data]
         if (state.TaskOne.id == data.id) dispatch({ type: "TaskOne", payload: {} })
         else dispatch({ type: "TaskOne", payload: body })
+        dispatch({ type: " isRunning", payload: false })
 
         localStorage.setItem("tasks", JSON.stringify(body))
     }

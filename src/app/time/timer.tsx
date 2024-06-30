@@ -5,7 +5,7 @@ import Icons from "./icons";
 import PomodoroTimerFun from "./controle";
 
 export default function PomodoroTimer() {
-    let { time, mode, isRunning, handleStart, handleStop, handleReset, audioRef, S10 } = PomodoroTimerFun()
+    let { time, mode, isRunning, handleStart, handleStop, handleReset, audioRef, audioRef3, S10 } = PomodoroTimerFun()
     const { state, dispatch } = useContext(TasksContext)
 
 
@@ -16,7 +16,7 @@ export default function PomodoroTimer() {
                     {time}
                 </div>
                 <div className="border justify-center border-blue-600 text-blue-600 p-1 rounded-full w-12 h-12  m-auto bg-white mt-[-45px]">
-                    {mode === 'work' ? <Icons.Work /> : mode === 'break' ? <Icons.Break /> : <Icons.Break /> }
+                    {mode === 'work' ? <Icons.Work /> : mode === 'break' ? <Icons.Break /> : <Icons.Break />}
 
                 </div>
                 {S10}
@@ -30,6 +30,7 @@ export default function PomodoroTimer() {
                     <button onClick={handleReset}><Icons.Reset /></button>
                 </div>}
                 <audio ref={audioRef} src="/audios_kichen-timer.mp3" />
+                <audio ref={audioRef3} src="/audios_button-press.wav" />
             </div>
         </div>
     )
