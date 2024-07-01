@@ -11,7 +11,7 @@ export default function PomodoroTimer() {
 
     return (
         <div>
-            <div className={`min-w-[300px] max-w-[400px] m-auto border border-blue-600 p-4 rounded-lg py-6 top-0 ${!state.TaskOne?.title && "hidden"}`} >
+            <div className={`fixed mt-[140px] min-w-[300px] max-w-[400px] m-auto border border-blue-600 p-4 rounded-lg py-6 top-0 ${!state.TaskOne?.title && "hidden"}`} >
                 <div className="time w-44 h-44 my-4 flex items-center border-4 justify-center border-blue-600 text-blue-600 p-4 rounded-full  m-auto text-center font-bold text-5xl">
                     {time}
                 </div>
@@ -19,7 +19,6 @@ export default function PomodoroTimer() {
                     {mode === 'work' ? <Icons.Work /> : mode === 'break' ? <Icons.Break /> : <Icons.Break />}
 
                 </div>
-                {S10}
                 <p className='my-8 text-center text-xl'> {state.TaskOne?.title} </p>
                 {state.TaskOne && <div className=" m-auto flex justify-center *:mx-2">
                     {!isRunning

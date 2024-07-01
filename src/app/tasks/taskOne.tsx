@@ -34,7 +34,7 @@ export function TaskOne({ data }: { data: TaskOneType }) {
             </li>
 
             <div className="flex flex-row *:mx-2  cursor-pointer items-center ">
-                <time className={`mb-1 text-sm leading-none font-medium text-white p-2 rounded-md dark:text-gray-300 bg-sky-500  ${data?.complete && "line-through"}`}>{formatTime(data.timeComplete)} </time>
+                <time className={`mb-1 text-sm leading-none font-medium text-white p-2 rounded-md dark:text-gray-300 bg-sky-500 select-none ${data?.complete && "line-through"}`}>{formatTime(data.timeComplete)} </time>
                 {!data?.complete &&
                     <>
                         <TaskDone data={data} size={30} />
