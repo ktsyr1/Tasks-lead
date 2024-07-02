@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TaskManager } from "../_lib/dataCenter";
 import { TaskOneType } from "./types";
-import { TasksContext } from "./store"; 
+import { TasksContext } from "./store";
 import { TaskOne } from "./taskOne";
 
 export function ListTask() {
@@ -11,7 +11,7 @@ export function ListTask() {
         console.log();
 
         let res: TaskOneType[] = TaskManager.find()
-
+        res.sort((a: any, b: any) => b.id + a.id).reverse();
         if (res?.length == 0) {
             "المهمة الاولى,اتمام اول مهمة, تشغيل اول مهمة".split(/[\n,]/).map(async (text: string) => {
                 text = text.trim()
