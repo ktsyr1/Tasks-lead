@@ -7,10 +7,8 @@ import { TaskOne } from "./taskOne";
 export function ListTask() {
     const { state, dispatch } = useContext(TasksContext)
     let [complete, setComplete] = useState<any>(false)
-    let [d, setD] = useState(new Date().getTime())
 
     useEffect(() => {
-        console.log();
 
         let res: TaskOneType[] = TaskManager.find()
         res.sort((a: any, b: any) => b.id + a.id).reverse()
@@ -23,21 +21,18 @@ export function ListTask() {
                 }
             })
         }
-        let time = new Date().getTime()
-        res = res.map((a: any) => {
-            time += (a.timeComplete * 1000) + 10 * 60000
-            console.log(time);
-
-            return {
-                ...a,
-                time
-            }
-        })
         dispatch({ type: "TaskList", payload: res })
 
     }, [dispatch])
     let count = state?.TaskList.filter((a: TaskOneType) => a?.complete == true).length
-    let unComplete = state?.TaskList?.filter((a: any) => !a?.complete)
+    let time = new Date().getTime()
+    let unComplete = state?.TaskList
+        .filter((a: any) => !a?.complete)
+        .map((a: any) => {
+            time = time + (a.timeComplete * 1000) + (10 * 60 * 1000)
+            return { ...a, time };
+        });
+
     let Complete = state?.TaskList?.filter((a: any) => a?.complete)
     return (
         <div className="m-4" >
