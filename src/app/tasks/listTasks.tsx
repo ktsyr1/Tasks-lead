@@ -7,11 +7,13 @@ import { TaskOne } from "./taskOne";
 export function ListTask() {
     const { state, dispatch } = useContext(TasksContext)
     let [complete, setComplete] = useState<any>(false)
+    let [d, setD] = useState(new Date().getTime())
+
     useEffect(() => {
         console.log();
 
         let res: TaskOneType[] = TaskManager.find()
-        res.sort((a: any, b: any) => b.id + a.id).reverse();
+        res.sort((a: any, b: any) => b.id + a.id).reverse()
         if (res?.length == 0) {
             "المهمة الاولى,اتمام اول مهمة, تشغيل اول مهمة".split(/[\n,]/).map(async (text: string) => {
                 text = text.trim()
@@ -21,6 +23,16 @@ export function ListTask() {
                 }
             })
         }
+        let time = new Date().getTime()
+        res = res.map((a: any) => {
+            time += (a.timeComplete * 1000) + 10 * 60000
+            console.log(time);
+
+            return {
+                ...a,
+                time
+            }
+        })
         dispatch({ type: "TaskList", payload: res })
 
     }, [dispatch])
@@ -30,7 +42,10 @@ export function ListTask() {
     return (
         <div className="m-4" >
             <ol className="relative border-s border-gray-200 dark:border-gray-700">
-                {unComplete.map((task: TaskOneType) => <TaskOne key={task?.id} data={task} />)}
+                {unComplete.map((task: any) => {
+
+                    return <TaskOne key={task?.id} data={task} />
+                })}
                 <hr />
                 <li className="mb-4 ms-4 mt-4" onClick={() => setComplete(!complete)}>
                     <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>

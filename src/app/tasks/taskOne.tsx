@@ -5,9 +5,8 @@ import { TasksContext } from "./store";
 import { TaskRun } from "../time/timer";
 
 
-export function TaskOne({ data }: { data: TaskOneType }) {
+export function TaskOne({ data, time }: { data: TaskOneType | any, time?: any }) {
     const { state, dispatch } = useContext(TasksContext)
-
     function add() {
         data.complete = !data.complete
         let task = TaskManager.updateOne(data)
@@ -23,9 +22,13 @@ export function TaskOne({ data }: { data: TaskOneType }) {
         const seconds = time % 60;
         return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
+    console.log(new Date(data?.time ).getHours());
+    
+    const formatTimes =  `${new Date(data?.time ).getHours()}:${new Date(data?.time ).getMinutes()}`
     return (
         <div className={`ms-2 items-center text-sm p-4 flex flex-row justify-between hover:bg-slate-50 rounded-md ${state.TaskOne.id == data.id && "border-2 border-blue-600"} `}>
-            <li className="  ms-4">
+            <li className="flex flex-row items-center ">
+                <time className={`ml-2 text-sm leading-none font-medium   p-2 rounded-md  text-gray-300   select-none ${data?.complete && "line-through"}`}>{formatTimes} </time>
                 <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                 <div className="flex flex-col ">
                     <time className={`mb-1 text-sm leading-none font-medium text-gray-900 dark:text-gray-300 ${data?.complete && "line-through"}`}>{data.title} </time>
@@ -34,7 +37,6 @@ export function TaskOne({ data }: { data: TaskOneType }) {
             </li>
 
             <div className="flex flex-row *:mx-2  cursor-pointer items-center ">
-                <time className={`mb-1 text-sm leading-none font-medium text-white p-2 rounded-md dark:text-gray-300 bg-sky-500 select-none ${data?.complete && "line-through"}`}>{formatTime(data.timeComplete)} </time>
                 {!data?.complete &&
                     <>
                         <TaskDone data={data} size={30} />
