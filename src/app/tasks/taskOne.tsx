@@ -5,7 +5,7 @@ import { TasksContext } from "./store";
 import { TaskRun } from "../time/timer";
 
 
-export function TaskOne({ data, time }: { data: TaskOneType | any, time?: any }) {
+export function TaskOne({ data, i }: { data: TaskOneType | any, i?: any }) {
     const { state, dispatch } = useContext(TasksContext)
     function add() {
         data.complete = !data.complete
@@ -17,14 +17,12 @@ export function TaskOne({ data, time }: { data: TaskOneType | any, time?: any })
 
         localStorage.setItem("tasks", JSON.stringify(body))
     }
-    const formatTime = (time: any) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = time % 60;
-        return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    };
-    console.log(new Date(data?.time ).getHours());
-    
-    const formatTimes =  `${new Date(data?.time ).getHours()}:${new Date(data?.time ).getMinutes()}`
+
+    let time = new Date().getTime() + (1000 * 60 * 35 * i) - data.timeComplete
+    console.log(new Date().getTime() ,i, (1000 * 60 * 35 * i));
+    console.log(time);
+
+    const formatTimes = `${new Date(time).getHours()}:${new Date(time).getMinutes()}`
     return (
         <div className={`ms-2 items-center text-sm p-4 flex flex-row justify-between hover:bg-slate-50 rounded-md ${state.TaskOne.id == data.id && "border-2 border-blue-600"} `}>
             <li className="flex flex-row items-center ">

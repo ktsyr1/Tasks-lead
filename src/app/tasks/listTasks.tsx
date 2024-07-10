@@ -28,19 +28,16 @@ export function ListTask() {
     let time = new Date().getTime()
     let unComplete = state?.TaskList
         .filter((a: any) => !a?.complete)
-        .map((a: any) => {
-            time = time + (a.timeComplete * 1000) + (10 * 60 * 1000)
-            return { ...a, time };
-        });
+    // .map((a: any) => {
+    //     time = time + (a.timeComplete * 1000) + (10 * 60 * 1000)
+    //     return { ...a, time };
+    // });
 
     let Complete = state?.TaskList?.filter((a: any) => a?.complete)
     return (
         <div className="m-4" >
             <ol className="relative border-s border-gray-200 dark:border-gray-700">
-                {unComplete.map((task: any) => {
-
-                    return <TaskOne key={task?.id} data={task} />
-                })}
+                {unComplete.map((task: any, i: any) => <TaskOne key={task?.id} data={task} i={i} />)}
                 <hr />
                 <li className="mb-4 ms-4 mt-4" onClick={() => setComplete(!complete)}>
                     <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
